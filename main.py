@@ -3,7 +3,6 @@ from os.path import isfile, join
 
 my_path = "./test-files"
 start_numer = 1
-enumeration_length = 3
 seperator = " "
 
 class File:
@@ -22,7 +21,43 @@ def inputRenameDecision() -> bool:
             return False
         print("  Try again. Inavlid input!");
 
+def input_char_count_remove():
+    print("\nCharater Count to remove from beginning:")
+    while (True):   
+        char_count_str = input("  > ")
+
+        try:
+            char_count = int(char_count_str)
+        except ValueError:
+            print("  Try again. Input is not a number!")
+            continue
+
+        if char_count < 1 or char_count > 20:
+            print("  Try again. Length must be between 1 and 20!")
+            continue
+
+        return char_count
+
+def input_enumeration_length():
+    print("\nLength of Enumeration [e.g. 3 = 001]: ");
+    while (True):   
+        enum_length_str = input("  > ")
+
+        try:
+            enum_length = int(enum_length_str)
+        except ValueError:
+            print("  Try again. Input is not a number!")
+            continue
+
+        if enum_length < 1 or enum_length > 20:
+            print("  Try again. Length must be between 1 and 20!")
+            continue
+
+        return enum_length
+
 def add_enumeration():
+    enum_length = input_enumeration_length()
+
     # get files and sort them by creation date
     files = []
     for item in scandir(my_path):
@@ -34,7 +69,7 @@ def add_enumeration():
     print("\nNew Filenames: ")
     counter = start_numer
     for file in files:
-        file.new_name = str(counter).zfill(enumeration_length) + seperator + file.name
+        file.new_name = str(counter).zfill(enum_length) + seperator + file.name
         counter += 1
         print(file.new_name)
 
@@ -47,6 +82,8 @@ def add_enumeration():
     print("\nfinished")
 
 def remove_enumeration():
+    chars_remove = input_char_count_remove()
+
     # get files
     files = []
     for item in scandir(my_path):
@@ -56,7 +93,7 @@ def remove_enumeration():
     # determine new names of files
     print("\nNew Filenames: ")
     for file in files:
-        file.new_name = file.name[4:]
+        file.new_name = file.name[chars_remove:]
         print(file.new_name)
 
     # rename files (if yes)

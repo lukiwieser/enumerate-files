@@ -1,8 +1,6 @@
 from os import scandir, rename
 from os.path import isfile, join, isdir
 
-seperator = " "
-
 
 class File:
     def __init__(self, name, new_name, creation_time):
@@ -52,7 +50,7 @@ def input_rename_decision() -> bool:
 
 
 def input_start_number() -> int:
-    print("\nStartnumber of Enumeration:")
+    print("\nStart Number of Enumeration:")
     while True:
         number_str = input("  > ")
 
@@ -74,7 +72,7 @@ def input_gaps() -> list[Interval]:
 
     print("\nAdd Gaps in Enumeration. Start and End of Gap are inclusive. Finish adding gaps with [f]")
     while True:
-        print("  " + str(len(gaps)+1) + ". Gap")
+        print("  " + str(len(gaps) + 1) + ". Gap")
         while True:
             print("    Start:")
             start_str = input("      > ")
@@ -100,7 +98,7 @@ def input_gaps() -> list[Interval]:
                 print("      End cannot be smaller than Start!")
                 continue
             break
-        new_gap = Interval(start,end)
+        new_gap = Interval(start, end)
         intersect = False
         for gap in gaps:
             if new_gap.intersect(gap):
@@ -174,7 +172,7 @@ def add_enumeration() -> None:
     for file in files:
         for gap in gaps:
             if gap.intersect_number(counter):
-                counter = gap.end+1
+                counter = gap.end + 1
 
         file.new_name = str(counter).zfill(enum_length) + enum_seperator + file.name
         print(file.new_name)

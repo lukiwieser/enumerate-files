@@ -11,6 +11,22 @@ class File:
         self.new_name = new_name
 
 
+class Interval:
+    def __init__(self, start: int, end: int):
+        self.start = start
+        self.end = end
+
+    def intersect(self, other: 'Interval') -> bool:
+        if other.start > self.end or other.end < self.start:
+            return False
+        return True
+
+    def intersect_number(self, other: int) -> bool:
+        if other > self.end or other < self.start:
+            return False
+        return True
+
+
 def input_folder_path() -> str:
     print("\nFolder Path:")
 
@@ -53,6 +69,49 @@ def input_start_number() -> int:
         return start_numer
 
 
+def input_gaps() -> list[Interval]:
+    gaps: list[Interval] = []
+
+    print("\nAdd Gaps in Enumeration. Start and End of Gap are inclusive. Finish adding gaps with [f]")
+    while True:
+        print("  " + str(len(gaps)+1) + ". Gap")
+        while True:
+            print("    Start:")
+            start_str = input("      >")
+            if start_str == "f":
+                return gaps
+            try:
+                start = int(start_str)
+            except ValueError:
+                print("      Input must be a number!")
+                continue
+            break
+        while True:
+            print("    End:")
+            end_str = input("      >")
+            if start_str == "f":
+                return gaps
+            try:
+                end = int(end_str)
+            except ValueError:
+                print("      Input must be a number!")
+                continue
+            if end < start:
+                print("      End cannot be smaller than Start!")
+                continue
+            break
+        new_gap = Interval(start,end)
+        intersect = False
+        for gap in gaps:
+            if new_gap.intersect(gap):
+                print(f"     Error: New Interval intersects existing interval ({gap.start},{gap.end}).")
+                intersect = True
+        if intersect:
+            continue
+
+        gaps.append(new_gap)
+
+
 def input_char_count_remove() -> int:
     print("\nCharacter Count to remove from beginning:")
     while True:
@@ -93,6 +152,7 @@ def add_enumeration() -> None:
     folder_path = input_folder_path()
     enum_length = input_enumeration_length()
     start_number = input_start_number()
+    gaps = input_gaps()
 
     # get files and sort them by creation date
     files = []
@@ -105,9 +165,13 @@ def add_enumeration() -> None:
     print("\nNew Filenames: ")
     counter = start_number
     for file in files:
+        for gap in gaps:
+            if gap.intersect_number(counter):
+                counter = gap.end+1
+
         file.new_name = str(counter).zfill(enum_length) + seperator + file.name
-        counter += 1
         print(file.new_name)
+        counter += 1
 
     # rename files (if yes)
     should_rename_files = input_rename_decision()

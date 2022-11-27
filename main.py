@@ -1,5 +1,5 @@
 from os import  scandir, rename
-from os.path import isfile, join
+from os.path import isfile, join, isdir
 
 my_path = "./test-files"
 start_numer = 1
@@ -11,17 +11,30 @@ class File:
         self.creation_time = creation_time
         self.new_name = new_name
 
-def inputRenameDecision() -> bool:
+def input_folder_path() -> str:
+    print("\nFolder Path:")
+
+    while (True):   
+        path = input("  > ")
+        if isdir(path):
+            return path
+
+        print("  Try again. This folder does not exist!")
+ 
+def input_rename_recision() -> bool:
     print("\nDo you want to rename the files? [y] [n]")
     while (True):   
         decision = input("  > ")
+
         if decision == "y": 
             return True
         if decision == "n": 
             return False
+
         print("  Try again. Inavlid input!");
 
-def input_char_count_remove():
+
+def input_char_count_remove() -> int:
     print("\nCharater Count to remove from beginning:")
     while (True):   
         char_count_str = input("  > ")
@@ -38,7 +51,7 @@ def input_char_count_remove():
 
         return char_count
 
-def input_enumeration_length():
+def input_enumeration_length() -> int:
     print("\nLength of Enumeration [e.g. 3 = 001]: ");
     while (True):   
         enum_length_str = input("  > ")
@@ -55,13 +68,14 @@ def input_enumeration_length():
 
         return enum_length
 
-def add_enumeration():
+def add_enumeration() -> None:
+    folder_path = input_folder_path()
     enum_length = input_enumeration_length()
 
     # get files and sort them by creation date
     files = []
-    for item in scandir(my_path):
-        if isfile(join(my_path, item.name)):
+    for item in scandir(folder_path):
+        if isfile(join(folder_path, item.name)):
             files.append(File(item.name, None, item.stat().st_ctime))
     files.sort(key=lambda x: x.creation_time, reverse=False)
 
@@ -74,20 +88,21 @@ def add_enumeration():
         print(file.new_name)
 
     # rename files (if yes)
-    should_rename_files = inputRenameDecision()
+    should_rename_files = input_rename_recision()
     if should_rename_files:
         for file in files:
-            rename(join(my_path,file.name),join(my_path,file.new_name))
+            rename(join(folder_path,file.name),join(folder_path,file.new_name))
 
     print("\nfinished")
 
-def remove_enumeration():
+def remove_enumeration() -> None:
+    folder_path = input_folder_path()
     chars_remove = input_char_count_remove()
 
     # get files
     files = []
-    for item in scandir(my_path):
-        if isfile(join(my_path, item.name)):
+    for item in scandir(folder_path):
+        if isfile(join(folder_path, item.name)):
             files.append(File(item.name, None, item.stat().st_ctime))
 
     # determine new names of files
@@ -97,14 +112,14 @@ def remove_enumeration():
         print(file.new_name)
 
     # rename files (if yes)
-    should_rename_files = inputRenameDecision()
+    should_rename_files = input_rename_recision()
     if should_rename_files:
         for file in files:
-            rename(join(my_path,file.name),join(my_path,file.new_name))
+            rename(join(folder_path,file.name),join(folder_path,file.new_name))
 
     print("\nfinished")
 
-def main():
+def main() -> None:
     print("** Enumerate Files By Creation Date **\n")
 
     print("What do you want to do?:")
@@ -119,4 +134,4 @@ def main():
     else:
         print("  Error - This Selection does not exist!")
 
-main()    
+main()   

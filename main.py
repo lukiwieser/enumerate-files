@@ -52,22 +52,6 @@ def input_start_number() -> int:
 
         return start_numer
 
-def input_start_number() -> int:
-    print("\nStart-Number for Enumeration:")
-    while (True):   
-        number_str = input("  > ")
-
-        try:
-            start_numer = int(number_str)
-        except ValueError:
-            print("  Try again. Input is not a number!")
-            continue
-
-        if start_numer < 0:
-            print("  Try again. Number must be positive!")
-            continue
-
-        return start_numer
 
 def input_char_count_remove() -> int:
     print("\nCharacter Count to remove from beginning:")

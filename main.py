@@ -1,7 +1,8 @@
-from os import  scandir, rename
+from os import scandir, rename
 from os.path import isfile, join, isdir
 
 seperator = " "
+
 
 class File:
     def __init__(self, name, new_name, creation_time):
@@ -9,31 +10,34 @@ class File:
         self.creation_time = creation_time
         self.new_name = new_name
 
+
 def input_folder_path() -> str:
     print("\nFolder Path:")
 
-    while (True):   
+    while True:
         path = input("  > ")
         if isdir(path):
             return path
 
         print("  Try again. This folder does not exist!")
- 
-def input_rename_recision() -> bool:
+
+
+def input_rename_decision() -> bool:
     print("\nDo you want to rename the files? [y] [n]")
-    while (True):   
+    while True:
         decision = input("  > ")
 
-        if decision == "y": 
+        if decision == "y":
             return True
-        if decision == "n": 
+        if decision == "n":
             return False
 
-        print("  Try again. Inavlid input!");
+        print("  Try again. Invalid input!")
+
 
 def input_start_number() -> int:
     print("\nStart-Number for Enumeration:")
-    while (True):   
+    while True:
         number_str = input("  > ")
 
         try:
@@ -48,9 +52,10 @@ def input_start_number() -> int:
 
         return start_numer
 
+
 def input_char_count_remove() -> int:
-    print("\nCharater Count to remove from beginning:")
-    while (True):   
+    print("\nCharacter Count to remove from beginning:")
+    while True:
         char_count_str = input("  > ")
 
         try:
@@ -65,9 +70,10 @@ def input_char_count_remove() -> int:
 
         return char_count
 
+
 def input_enumeration_length() -> int:
-    print("\nLength of Enumeration [e.g. 3 = 001]: ");
-    while (True):   
+    print("\nLength of Enumeration [e.g. 3 = 001]: ")
+    while True:
         enum_length_str = input("  > ")
 
         try:
@@ -81,6 +87,7 @@ def input_enumeration_length() -> int:
             continue
 
         return enum_length
+
 
 def add_enumeration() -> None:
     folder_path = input_folder_path()
@@ -103,12 +110,13 @@ def add_enumeration() -> None:
         print(file.new_name)
 
     # rename files (if yes)
-    should_rename_files = input_rename_recision()
+    should_rename_files = input_rename_decision()
     if should_rename_files:
         for file in files:
-            rename(join(folder_path,file.name),join(folder_path,file.new_name))
+            rename(join(folder_path, file.name), join(folder_path, file.new_name))
 
     print("\nfinished")
+
 
 def remove_enumeration() -> None:
     folder_path = input_folder_path()
@@ -127,12 +135,13 @@ def remove_enumeration() -> None:
         print(file.new_name)
 
     # rename files (if yes)
-    should_rename_files = input_rename_recision()
+    should_rename_files = input_rename_decision()
     if should_rename_files:
         for file in files:
-            rename(join(folder_path,file.name),join(folder_path,file.new_name))
+            rename(join(folder_path, file.name), join(folder_path, file.new_name))
 
     print("\nfinished")
+
 
 def main() -> None:
     print("** Enumerate Files By Creation Date **\n")
@@ -149,4 +158,5 @@ def main() -> None:
     else:
         print("  Error - This Selection does not exist!")
 
-main()   
+
+main()

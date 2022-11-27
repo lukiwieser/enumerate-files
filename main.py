@@ -1,8 +1,6 @@
 from os import  scandir, rename
 from os.path import isfile, join, isdir
 
-my_path = "./test-files"
-start_numer = 1
 seperator = " "
 
 class File:
@@ -33,6 +31,22 @@ def input_rename_recision() -> bool:
 
         print("  Try again. Inavlid input!");
 
+def input_start_number() -> int:
+    print("\nStart-Number for Enumeration:")
+    while (True):   
+        number_str = input("  > ")
+
+        try:
+            start_numer = int(number_str)
+        except ValueError:
+            print("  Try again. Input is not a number!")
+            continue
+
+        if start_numer < 0:
+            print("  Try again. Number must be positive!")
+            continue
+
+        return start_numer
 
 def input_char_count_remove() -> int:
     print("\nCharater Count to remove from beginning:")
@@ -71,6 +85,7 @@ def input_enumeration_length() -> int:
 def add_enumeration() -> None:
     folder_path = input_folder_path()
     enum_length = input_enumeration_length()
+    start_number = input_start_number()
 
     # get files and sort them by creation date
     files = []
@@ -81,7 +96,7 @@ def add_enumeration() -> None:
 
     # determine new names of files
     print("\nNew Filenames: ")
-    counter = start_numer
+    counter = start_number
     for file in files:
         file.new_name = str(counter).zfill(enum_length) + seperator + file.name
         counter += 1

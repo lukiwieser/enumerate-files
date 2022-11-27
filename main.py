@@ -52,7 +52,7 @@ def input_rename_decision() -> bool:
 
 
 def input_start_number() -> int:
-    print("\nStart-Number for Enumeration:")
+    print("\nStartnumber of Enumeration:")
     while True:
         number_str = input("  > ")
 
@@ -77,7 +77,7 @@ def input_gaps() -> list[Interval]:
         print("  " + str(len(gaps)+1) + ". Gap")
         while True:
             print("    Start:")
-            start_str = input("      >")
+            start_str = input("      > ")
             if start_str == "f":
                 return gaps
             try:
@@ -88,7 +88,7 @@ def input_gaps() -> list[Interval]:
             break
         while True:
             print("    End:")
-            end_str = input("      >")
+            end_str = input("      > ")
             if start_str == "f":
                 return gaps
             try:
@@ -148,28 +148,35 @@ def input_enumeration_length() -> int:
         return enum_length
 
 
+def input_enumeration_seperator() -> str:
+    print("\nEnumeration Seperator [e.g. __ = 001__]: ")
+    enum_seperator = input("  > ")
+    return enum_seperator
+
+
 def add_enumeration() -> None:
     folder_path = input_folder_path()
     enum_length = input_enumeration_length()
+    enum_seperator = input_enumeration_seperator()
     start_number = input_start_number()
     gaps = input_gaps()
 
     # get files and sort them by creation date
-    files = []
+    files: list[File] = []
     for item in scandir(folder_path):
         if isfile(join(folder_path, item.name)):
             files.append(File(item.name, None, item.stat().st_ctime))
     files.sort(key=lambda x: x.creation_time, reverse=False)
 
     # determine new names of files
-    print("\nNew Filenames: ")
+    print("\nNew Filenames:")
     counter = start_number
     for file in files:
         for gap in gaps:
             if gap.intersect_number(counter):
                 counter = gap.end+1
 
-        file.new_name = str(counter).zfill(enum_length) + seperator + file.name
+        file.new_name = str(counter).zfill(enum_length) + enum_seperator + file.name
         print(file.new_name)
         counter += 1
 
@@ -187,7 +194,7 @@ def remove_enumeration() -> None:
     chars_remove = input_char_count_remove()
 
     # get files
-    files = []
+    files: list[File] = []
     for item in scandir(folder_path):
         if isfile(join(folder_path, item.name)):
             files.append(File(item.name, None, item.stat().st_ctime))

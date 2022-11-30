@@ -14,7 +14,7 @@ The script can be executed with the following command:
 python main.py
 ```
 
-Next the script will ask for certain parameters like the number of leading zeros. After entering all parameters a preview of the renamed files will be shown.
+Next the script will ask for certain parameters like location of the folder. After entering all parameters a preview of the renamed files will be shown.
 
 ## Features
 

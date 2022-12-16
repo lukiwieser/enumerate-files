@@ -152,10 +152,24 @@ def input_enumeration_seperator() -> str:
     return enum_seperator
 
 
+def input_orderby_descending() -> bool:
+    print("\nOrder ascending [a] or descending [d]?")
+    while True:
+        orderby = input("  > ")
+
+        if orderby == "a":
+            return False
+        if orderby == "d":
+            return True
+
+        print("  Try again. Only [a] or [d] are valid inputs.")
+
+
 def add_enumeration() -> None:
     folder_path = input_folder_path()
     enum_length = input_enumeration_length()
     enum_seperator = input_enumeration_seperator()
+    orderby_desc = input_orderby_descending()
     start_number = input_start_number()
     gaps = input_gaps()
 
@@ -164,7 +178,7 @@ def add_enumeration() -> None:
     for item in scandir(folder_path):
         if isfile(join(folder_path, item.name)):
             files.append(File(item.name, None, item.stat().st_ctime))
-    files.sort(key=lambda x: x.creation_time, reverse=False)
+    files.sort(key=lambda x: x.creation_time, reverse=orderby_desc)
 
     # determine new names of files
     print("\nNew Filenames:")

@@ -22,9 +22,10 @@ The following aspects can be customized:
 - Number of leading zeros
 - Start Number
 - Gaps in Enumeration (e.g. skip 7 to 12)
+- Order of Enumeration (ascending/descending)
 - Seperator after Enumeration (e.g. 001_xx, or 002-xx)
 - Remove Enumeration
 
 ## Resources
 
-A very usefully tool for batch renaming files is [Power Toys](https://learn.microsoft.com/en-us/windows/powertoys/) from Microsoft.
+A very usefully tool for batch renaming files is [PowerToys](https://learn.microsoft.com/en-us/windows/powertoys/) from Microsoft.

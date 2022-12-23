@@ -6,7 +6,7 @@ A python script to easily number your files by their creation date.
 
 ## Getting Started
 
-This project requires [Python 3](https://www.python.org/downloads/) to be installed on your machine, and only works on Windows.
+This project requires [Python 3.6](https://www.python.org/downloads/) to be installed on your machine, and only works on Windows.
 
 The script can be executed with the following command:
 

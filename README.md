@@ -23,7 +23,7 @@ The following aspects can be customized:
 - Start Number
 - Gaps in Enumeration (e.g. skip 7 to 12)
 - Order of Enumeration (ascending/descending)
-- Seperator after Enumeration (e.g. 001_xx, or 002-xx)
+- Separator after Enumeration (e.g. 001_xx, or 002-xx)
 - Remove Enumeration
 
 ## Resources

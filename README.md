@@ -6,7 +6,7 @@ A python script to easily number your files by their creation date.
 
 ## Getting Started
 
-This project requires [Python 3.6](https://www.python.org/downloads/) to be installed on your machine, and only works on Windows.
+This project requires [Python 3.6+](https://www.python.org/downloads/) to be installed on your machine..
 
 The script can be executed with the following command:
 
@@ -19,6 +19,7 @@ Next the script will ask for certain parameters like location of the folder. Aft
 ## Features
 
 The following aspects can be customized:
+
 - Number of leading zeros
 - Start Number
 - Gaps in Enumeration (e.g. skip 7 to 12)
